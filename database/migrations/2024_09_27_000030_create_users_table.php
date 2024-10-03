@@ -13,20 +13,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id'); // Default role is customer
-            $table->date('registration_date');
-            $table->integer('nik');
+            $table->date('registration_date')->default(now());
+            $table->integer('nik')->nullable();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('password')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->integer('number');
-            $table->date('birth_date');
-            $table->string('gender');
+            $table->integer('number')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('gender')->nullable();
 
             $table->timestamps();
-
-            // Foreign key constraint
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
